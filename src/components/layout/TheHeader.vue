@@ -8,6 +8,12 @@
       </el-col>
       <el-col :span="18">
         <ul>
+          <li style="display: flex; align-items: center;">
+            <el-icon>
+              <User/>
+            </el-icon>
+            <span>用户名</span>
+          </li>
           <li>
             <router-link to="/passwd">修改密码</router-link>
           </li>
@@ -24,7 +30,7 @@
 export default {
   methods: {
     logout() {
-
+      this.$store.dispatch('auth/logout', { isAuto: true });
     }
   }
 };
@@ -56,6 +62,10 @@ nav {
 
     li {
       margin-left: 20px;
+
+      .el-icon {
+        margin-right: 4px;
+      }
 
       a {
         color: $link-color;

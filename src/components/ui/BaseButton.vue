@@ -1,8 +1,8 @@
 <template>
-  <el-button v-if="!isLink" :class="mode" :loading="isLoading">
+  <el-button class="base-button" v-if="!isLink" :class="mode" :loading="isLoading">
     <slot></slot>
   </el-button>
-  <router-link v-else :to="to" :class="mode">
+  <router-link class="base-button" v-else :to="to" :class="mode">
     <slot></slot>
   </router-link>
 </template>

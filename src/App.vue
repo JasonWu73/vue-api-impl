@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header v-if="isLoggedIn">
       <the-header/>
     </el-header>
     <el-main>
@@ -19,6 +19,11 @@ import TheHeader from '@/components/layout/TheHeader.vue';
 export default {
   components: {
     TheHeader
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['auth/isLoggedIn'];
+    }
   }
 };
 </script>
