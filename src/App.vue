@@ -24,6 +24,10 @@ export default {
     isLoggedIn() {
       return this.$store.getters['auth/isLoggedIn'];
     }
+  },
+  async created() {
+    // 尝试从 Local Storage 读取登录信息，防止 F5 丢失登录信息
+    await this.$store.dispatch('auth/tryLogin');
   }
 };
 </script>

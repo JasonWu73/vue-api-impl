@@ -1,4 +1,4 @@
-import { apiClient } from '@/api.js';
+import api from '@/api.js';
 import router from '@/router';
 
 let timer;
@@ -6,7 +6,7 @@ let timer;
 export default {
   async login(context, { username, password }) {
     try {
-      const response = await apiClient.post('/api/v1/token', {
+      const response = await api.post('/api/v1/token', {
         username,
         password
       });
@@ -16,7 +16,7 @@ export default {
     }
   },
   async refreshLogin(context) {
-    const response = await apiClient.post(`/api/v1/token/${ context.getters.refreshToken }`);
+    const response = await api.post(`/api/v1/token/${ context.getters.refreshToken }`);
     await context.dispatch('authenticate', { ...response.data });
   },
   async logout(context, { isAuto = false } = {}) {
@@ -46,8 +46,11 @@ export default {
   authenticate(context, payload) {
     // 保存登录缓存（Vuex + Local Storage）
     const { accessToken, refreshToken, expiresIn, username, nickname, authorities } = payload;
-    const current = Math.floor(new Date().getTime() / 1000);
-    const expiredAt = current + expiresIn;
+    let expiredAt = payload.expiredAt;
+    if (!expiredAt) {
+      const current = Math.floor(new Date().getTime() / 1000);
+      expiredAt = current + expiresIn;
+    }
     context.commit('setAuthentication', {
       accessToken,
       refreshToken,
@@ -65,5 +68,9 @@ export default {
     timer = setTimeout(async () => {
       await context.dispatch('logout', { isAuto: true });
     }, expiresIn * 1000);
+  },
+  async tryLogin(context) {
+    const auth = localStorage.getItem('auth') && JSON.parse(localStorage.getItem('auth'));
+    await context.dispatch('authenticate', auth);
   }
 };

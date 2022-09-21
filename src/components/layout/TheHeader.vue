@@ -30,7 +30,7 @@
 export default {
   methods: {
     logout() {
-      this.$store.dispatch('auth/logout', { isAuto: true });
+      this.$store.dispatch('auth/logout');
     }
   }
 };

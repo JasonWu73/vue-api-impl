@@ -4,11 +4,11 @@
       <h1>登录</h1>
     </template>
     <el-form :model="form" :rules="rules" ref="form" label-width="70px">
-      <el-form-item label="用户名" prop="username">
+      <el-form-item label="用户名" prop="username" @keyup.enter="login">
         <el-input v-model.trim="form.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model.trim="form.password" type="password"></el-input>
+        <el-input v-model.trim="form.password" type="password" @keyup.enter="login"></el-input>
       </el-form-item>
       <el-form-item>
         <base-button @click="login" :loading="isLoading">登录</base-button>

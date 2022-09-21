@@ -8,15 +8,8 @@ import 'nprogress/nprogress.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import axios from 'axios';
-import { initApiClient } from '@/api.js';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseCard from '@/components/ui/BaseCard.vue';
-
-// public/config.json
-axios.get('/config.json')
-  .then(response => initApiClient(response.data));
-
 
 NProgress.configure({ showSpinner: false });
 
