@@ -5,8 +5,15 @@ import store from '@/store';
 
 let apiClient;
 const initApiClient = config => {
+  let baseURL;
+  if (config && config.serverIp && config.serverPort) {
+    baseURL = `http://${ config.serverIp }:${ config.serverPort }`;
+  } else {
+    baseURL = window.location.origin;
+  }
+
   apiClient = axios.create({
-    baseURL: `http://${ config.serverIp }:${ config.serverPort }`
+    baseURL
   });
 
   apiClient.interceptors.request.use(
