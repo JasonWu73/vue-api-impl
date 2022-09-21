@@ -1,7 +1,8 @@
 <template>
   <nav>
     <el-row>
-      <el-col :span="6">
+      <el-col :span="6" class="title">
+        <img src="@/assets/logo.png" alt="Vue Logo">
         <h1>
           <router-link to="/">前端 FALLBACK</router-link>
         </h1>
@@ -43,16 +44,28 @@ nav {
   padding-left: 40px;
   padding-right: 40px;
 
-  h1 {
-    a {
-      &:link,
-      &:visited,
-      &:hover,
-      &:active {
-        color: #fff;
-        text-decoration: none;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    img {
+      width: 38px;
+      height: 38px;
+    }
+
+    h1 {
+      a {
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+          color: #fff;
+          text-decoration: none;
+        }
       }
     }
+
   }
 
   ul {

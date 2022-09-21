@@ -1,7 +1,10 @@
 <template>
   <base-card>
     <template #header>
-      <h1>登录</h1>
+      <div class="title">
+        <img src="@/assets/logo.png" alt="Vue Logo">
+        <h1>登录</h1>
+      </div>
     </template>
     <el-form :model="form" :rules="rules" ref="form" label-width="66px">
       <el-form-item label="用户名" prop="username">
@@ -74,8 +77,19 @@ export default {
   max-width: 430px;
   margin: 130px auto 0 auto;
 
-  h1 {
-    text-align: center;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+
+    h1 {
+      text-align: center;
+    }
   }
 }
 </style>
