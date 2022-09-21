@@ -3,8 +3,8 @@
     <template #header>
       <h1>Hello REST API</h1>
     </template>
-    <p>{{ name }}</p>
-    <p>{{ version }}</p>
+    <p>版本：{{ version }}</p>
+    <p>构建时间：{{ built }}</p>
   </base-card>
 </template>
 
@@ -13,13 +13,13 @@ export default {
   data() {
     return {
       version: '',
-      name: ''
+      built: ''
     };
   },
   async created() {
-    const { version, name } = await this.$store.dispatch('getVersion');
+    const { version, built } = await this.$store.dispatch('getVersion');
     this.version = version;
-    this.name = name;
+    this.built = built;
   }
 };
 </script>
