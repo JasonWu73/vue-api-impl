@@ -6,10 +6,7 @@ let timer;
 export default {
   async login(context, { username, password }) {
     try {
-      const response = await api.post('/api/v1/token', {
-        username,
-        password
-      });
+      const response = await api.post('/api/v1/token', { username, password });
       await context.dispatch('authenticate', { ...response.data });
     } catch (error) {
       throw new Error(error.response.data?.error || error.message);
@@ -72,5 +69,13 @@ export default {
   async tryLogin(context) {
     const auth = localStorage.getItem('auth') && JSON.parse(localStorage.getItem('auth'));
     await context.dispatch('authenticate', auth);
+  },
+  async changePassword(context, { oldPassword, newPassword }) {
+    try {
+      await api.post('/api/v1/user/passwd', { oldPassword, newPassword });
+      await context.dispatch('logout');
+    } catch (error) {
+      throw new Error(error.response.data?.error || error.message);
+    }
   }
 };
