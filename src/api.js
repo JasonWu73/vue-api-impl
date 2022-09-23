@@ -4,7 +4,8 @@ import router from '@/router';
 import store from '@/store';
 
 const apiClient = axios.create({
-  baseURL: window?._CONFIG?.baseUrl || window.location.origin
+  baseURL: window?._CONFIG?.baseUrl || window.location.origin,
+  timeout: 10_000,
 });
 
 apiClient.interceptors.request.use(
