@@ -7,8 +7,13 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { useHead } from '@vueuse/head';
+
+// 设置网站标题
+useHead({
+  title: '404'
+});
 </script>
 
 <style lang="scss" scoped>

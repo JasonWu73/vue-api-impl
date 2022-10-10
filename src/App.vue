@@ -13,23 +13,25 @@
   </el-container>
 </template>
 
-<script>
+<script setup>
 import TheHeader from '@/components/layout/TheHeader.vue';
+import { useHead } from '@vueuse/head';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  components: {
-    TheHeader
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['auth/isLoggedIn'];
-    }
-  },
-  async created() {
-    // 尝试从 Local Storage 读取登录信息，防止 F5 丢失登录信息
-    await this.$store.dispatch('auth/tryLogin');
-  }
+// 设置网站标题
+useHead({
+  title: '前端演示项目'
+});
+
+const store = useStore();
+const isLoggedIn = computed(() => store.getters['auth/isLoggedIn']);
+
+const init = async () => {
+// 尝试从 Local Storage 读取登录信息, 防止 F5 丢失登录信息
+  await store.dispatch('auth/tryLogin');
 };
+init();
 </script>
 
 <style lang="scss">

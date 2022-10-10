@@ -72,7 +72,7 @@ export default {
   },
   async changePassword(context, { oldPassword, newPassword }) {
     try {
-      await api.post('/api/v1/user/passwd', { oldPassword, newPassword });
+      await api.put('/api/v1/user/passwd', { oldPassword, newPassword });
       await context.dispatch('logout');
     } catch (error) {
       throw new Error(error.response.data?.error || error.message);
