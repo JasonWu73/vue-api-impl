@@ -24,7 +24,7 @@
 import { ElMessage } from 'element-plus';
 import { useHead } from '@vueuse/head';
 import { reactive, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useAuthStore } from '@/stores/auth.js';
 import { useRoute, useRouter } from 'vue-router';
 
 // 设置网站标题
@@ -48,7 +48,6 @@ const rules = reactive({
   ]
 });
 
-const store = useStore();
 const router = useRouter();
 const route = useRoute();
 const formRef = ref(null);
@@ -59,7 +58,8 @@ const login = () => {
 
     isLoading.value = true;
     try {
-      await store.dispatch('auth/login', formData);
+      const auth = useAuthStore();
+      await auth.login(formData);
       // 当 URL 类似为 `login?redirect=/passwd` 时，可在登录后跳转至该页面
       router.replace(route.query.redirect || '/');
     } catch (error) {

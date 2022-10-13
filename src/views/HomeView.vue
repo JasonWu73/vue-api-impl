@@ -11,7 +11,7 @@
 <script setup>
 // 设置网站标题
 import { useHead } from '@vueuse/head';
-import { useStore } from 'vuex';
+import { useVersionStore } from '@/stores/version.js';
 import { reactive } from 'vue';
 
 useHead({
@@ -23,9 +23,9 @@ const versionData = reactive({
   machineCode: ''
 });
 
-const store = useStore();
 const init = async () => {
-  const { version, machineCode } = await store.dispatch('getVersion');
+  const versionStore = useVersionStore();
+  const { version, machineCode } = await versionStore.getVersion();
   versionData.version = version;
   versionData.machineCode = machineCode;
 };

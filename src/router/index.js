@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NProgress from 'nprogress';
-import store from '@/store';
+import { useAuthStore } from '@/stores/auth.js';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 
@@ -35,10 +35,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   NProgress.start();
 
-  if (to.meta.requiresAuthenticated && !store.getters['auth/isLoggedIn']) {
+  const auth = useAuthStore();
+  if (to.meta.requiresAuthenticated && !auth.isLoggedIn()) {
     // 访问受保护的页面，但未登录则跳转至登录页
     next('/login');
-  } else if (to.meta.requiresUnauthenticated && store.getters['auth/isLoggedIn']) {
+  } else if (to.meta.requiresUnauthenticated && auth.isLoggedIn()) {
     // 访问无需登录的页面，但已登录则跳转至首页
     next('/');
   } else {
