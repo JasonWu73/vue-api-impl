@@ -22,7 +22,7 @@
 import { ElMessage } from 'element-plus';
 import { useHead } from '@vueuse/head';
 import { reactive, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useAuthStore } from '@/stores/auth.js';
 
 // 设置网站标题
 useHead({
@@ -38,7 +38,7 @@ const formData = reactive({
 
 const formRef = ref(null);
 const validateConfirmPassword = (rule, value, callback) => {
-  if (value && formRef.value.newPassword && value !== this.form.newPassword) {
+  if (value !== formData.newPassword) {
     callback(new Error('确认密码与新密码输入不匹配'));
     return;
   }
@@ -61,14 +61,14 @@ const rules = reactive({
 });
 
 const isLoading = ref(false);
-const store = useStore();
 const submitForm = () => {
   formRef.value.validate(async valid => {
     if (!valid) return;
 
     isLoading.value = true;
     try {
-      await store.dispatch('auth/changePassword', formData);
+      const auth = useAuthStore();
+      await auth.changePassword(formData);
     } catch (error) {
       ElMessage({
         showClose: true,
