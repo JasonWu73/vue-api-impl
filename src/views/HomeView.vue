@@ -4,6 +4,7 @@
       <h1>Hello REST API</h1>
     </template>
     <p>版本：{{ versionData.version }}</p>
+    <p>开发者：{{ versionData.developer }}</p>
     <p>机器码：{{ versionData.machineCode }}</p>
   </base-card>
 </template>
@@ -25,8 +26,9 @@ const versionData = reactive({
 
 const init = async () => {
   const versionStore = useVersionStore();
-  const { version, machineCode } = await versionStore.getVersion();
+  const { version, machineCode, developer } = await versionStore.getVersion();
   versionData.version = version;
+  versionData.developer = developer;
   versionData.machineCode = machineCode;
 };
 init();

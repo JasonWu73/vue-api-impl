@@ -27,14 +27,12 @@
   </nav>
 </template>
 
-<script>
-export default {
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/logout');
-    }
-  }
-};
+<script setup>
+import { useAuthStore } from '@/stores/auth.js';
+
+const auth = useAuthStore();
+
+const logout = () => auth.logout();
 </script>
 
 <style lang="scss" scoped>

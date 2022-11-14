@@ -61,7 +61,7 @@ export const api = {
   version: {
     load: async () => {
       try {
-        return await apiClient.get('/api/v1/version');
+        return await apiClient.get('/api/v1/public/version');
       } catch (error) {
         throw new Error(error.data.message);
       }
